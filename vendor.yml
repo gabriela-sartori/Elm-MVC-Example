@@ -1,0 +1,8 @@
+# Node dependencies
+- node_modules/
+
+# Elm dependencies
+- elm-stuff/
+
+# Javacript Files
+- ^elm\.js$
