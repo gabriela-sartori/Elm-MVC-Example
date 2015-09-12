@@ -2,7 +2,7 @@ module Update where
 
 import Signal exposing (Address)
 
-import List exposing (filter, length)
+import List exposing (filter, length, head, any)
 import String
 
 import Utils exposing (fixStr)
@@ -31,9 +31,9 @@ update action model =
                             name'   = fixStr model.register_form.name
                             login'  = fixStr model.register_form.login
                             pass'   = fixStr model.register_form.password
-                            account = model.accounts |> filter (\st -> login' == fixStr st.login) |> List.head
+                            account = model.accounts |> filter ((==) login' << fixStr << .login) |> head
                         in
-            if List.any ((==) 0 << String.length) [name', login', pass'] then
+            if any ((==) 0 << String.length) [name', login', pass'] then
                 { model | message <- "Please fill all the fields"}
             else
                 case account of
@@ -54,7 +54,7 @@ update action model =
         ActUpdatePass  text  -> { model | password <- text  }
         
         ActLogin -> let account = model.accounts |> filter (\acc -> fixStr acc.login    == fixStr model.login
-                                                                 && fixStr acc.password == fixStr model.password) |> List.head
+                                                                 && fixStr acc.password == fixStr model.password) |> head
                     in
 
             case account of

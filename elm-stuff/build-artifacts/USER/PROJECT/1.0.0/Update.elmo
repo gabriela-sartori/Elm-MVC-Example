@@ -71,9 +71,12 @@ Elm.Update.make = function (_elm) {
             return function () {
                  var pass$ = $Utils.fixStr(model.register_form.password);
                  var login$ = $Utils.fixStr(model.register_form.login);
-                 var account = $List.head($List.filter(function (st) {
-                    return _U.eq(login$,
-                    $Utils.fixStr(st.login));
+                 var account = $List.head($List.filter(function ($) {
+                    return F2(function (x,y) {
+                       return _U.eq(x,y);
+                    })(login$)($Utils.fixStr(function (_) {
+                       return _.login;
+                    }($)));
                  })(model.accounts));
                  var name$ = $Utils.fixStr(model.register_form.name);
                  return A2($List.any,
