@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0",
+    "summary": "Buzzword Bingo",
+    "repository": "https://github.com/USER/PROJECT.git",
+    "license": "BSD3",
+    "source-directories": [
+        "."
+    ],
+    "exposed-modules": [],
+    "dependencies": {
+        "elm-lang/core": "2.1.0 <= v <= 2.1.0",
+        "evancz/elm-html": "3.0.0 <= v <= 3.0.0",
+        "evancz/start-app": "1.0.0 <= v <= 1.0.0"
+    },
+    "elm-version": "0.15.1 <= v <= 0.15.1",
+    "sublime-build": {
+        "output": {
+            "path": "Bingo.html"
+        }
+    }
+}

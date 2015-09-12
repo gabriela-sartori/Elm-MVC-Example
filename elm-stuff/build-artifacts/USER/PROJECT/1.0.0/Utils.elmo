@@ -1,0 +1,49 @@
+Elm.Utils = Elm.Utils || {};
+Elm.Utils.make = function (_elm) {
+   "use strict";
+   _elm.Utils = _elm.Utils || {};
+   if (_elm.Utils.values)
+   return _elm.Utils.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Utils",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm);
+   var fixStr = function ($) {
+      return $String.trim($String.toLower($));
+   };
+   var parseInt = function (string) {
+      return function () {
+         var _v0 = $String.toInt(string);
+         switch (_v0.ctor)
+         {case "Err": return 0;
+            case "Ok": return _v0._0;}
+         _U.badCase($moduleName,
+         "between lines 13 and 15");
+      }();
+   };
+   var onInput = F2(function (address,
+   f) {
+      return A3($Html$Events.on,
+      "input",
+      $Html$Events.targetValue,
+      function (v) {
+         return A2($Signal.message,
+         address,
+         f(v));
+      });
+   });
+   _elm.Utils.values = {_op: _op
+                       ,onInput: onInput
+                       ,parseInt: parseInt
+                       ,fixStr: fixStr};
+   return _elm.Utils.values;
+};

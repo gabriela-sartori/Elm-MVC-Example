@@ -1,0 +1,68 @@
+Elm.Model = Elm.Model || {};
+Elm.Model.make = function (_elm) {
+   "use strict";
+   _elm.Model = _elm.Model || {};
+   if (_elm.Model.values)
+   return _elm.Model.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Model",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var Model = F7(function (a,
+   b,
+   c,
+   d,
+   e,
+   f,
+   g) {
+      return {_: {}
+             ,account: b
+             ,accounts: a
+             ,login: d
+             ,message: f
+             ,page: c
+             ,password: e
+             ,register_form: g};
+   });
+   var Account = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,id: a
+             ,login: c
+             ,name: b
+             ,password: d};
+   });
+   var AtAbout = {ctor: "AtAbout"};
+   var AtRegister = {ctor: "AtRegister"};
+   var AtLogin = {ctor: "AtLogin"};
+   var AtHome = {ctor: "AtHome"};
+   var model = {_: {}
+               ,account: $Maybe.Nothing
+               ,accounts: _L.fromArray([])
+               ,login: ""
+               ,message: ""
+               ,page: AtHome
+               ,password: ""
+               ,register_form: {_: {}
+                               ,id: 0
+                               ,login: ""
+                               ,name: ""
+                               ,password: ""}};
+   _elm.Model.values = {_op: _op
+                       ,AtHome: AtHome
+                       ,AtLogin: AtLogin
+                       ,AtRegister: AtRegister
+                       ,AtAbout: AtAbout
+                       ,Account: Account
+                       ,Model: Model
+                       ,model: model};
+   return _elm.Model.values;
+};

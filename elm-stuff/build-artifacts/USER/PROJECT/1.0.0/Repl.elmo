@@ -1,0 +1,50 @@
+Elm.Repl = Elm.Repl || {};
+Elm.Repl.make = function (_elm) {
+   "use strict";
+   _elm.Repl = _elm.Repl || {};
+   if (_elm.Repl.values)
+   return _elm.Repl.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Repl",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var x = 2;
+   var tsol = {ctor: "_Tuple0"};
+   var q = F2(function (maybe,
+   $default) {
+      return A2($Maybe.withDefault,
+      $default,
+      maybe);
+   });
+   var pass$ = "";
+   var name$ = "";
+   var login$ = "";
+   var deltron3030 = A2(F2(function (x,
+   y) {
+      return _U.cmp(x,y) > 0;
+   }),
+   0,
+   1);
+   var Nome = F3(function (a,b,c) {
+      return {_: {}
+             ,id: a
+             ,nome: b
+             ,pos: c};
+   });
+   _elm.Repl.values = {_op: _op
+                      ,Nome: Nome
+                      ,deltron3030: deltron3030
+                      ,login$: login$
+                      ,name$: name$
+                      ,pass$: pass$
+                      ,q: q
+                      ,tsol: tsol
+                      ,x: x};
+   return _elm.Repl.values;
+};

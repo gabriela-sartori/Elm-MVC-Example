@@ -1,0 +1,320 @@
+Elm.Bingo = Elm.Bingo || {};
+Elm.Bingo.make = function (_elm) {
+   "use strict";
+   _elm.Bingo = _elm.Bingo || {};
+   if (_elm.Bingo.values)
+   return _elm.Bingo.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Bingo",
+   $Basics = Elm.Basics.make(_elm),
+   $BingoUtils = Elm.BingoUtils.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $StartApp = Elm.StartApp.make(_elm),
+   $String = Elm.String.make(_elm);
+   var totalItem = function (total) {
+      return A2($Html.li,
+      _L.fromArray([$Html$Attributes.$class("total")]),
+      _L.fromArray([A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("label")]),
+                   _L.fromArray([$Html.text("Total")]))
+                   ,A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("points")]),
+                   _L.fromArray([$Html.text($Basics.toString(total))]))]));
+   };
+   var totalPoints = function (entries) {
+      return function () {
+         var spokenEntries = A2($List.filter,
+         function (_) {
+            return _.wasSpoken;
+         },
+         entries);
+         return $List.sum(A2($List.map,
+         function (_) {
+            return _.points;
+         },
+         spokenEntries));
+      }();
+   };
+   var pageFooter = A2($Html.footer,
+   _L.fromArray([]),
+   _L.fromArray([A2($Html.a,
+   _L.fromArray([$Html$Attributes.href("https://pragmaticstudio.com")]),
+   _L.fromArray([$Html.text("The Pragmatic Studio")]))]));
+   var title = F2(function (message,
+   times) {
+      return $Html.text($String.trimRight($String.repeat(times)($String.toUpper(A2($Basics._op["++"],
+      message,
+      " ")))));
+   });
+   var pageHeader = A2($Html.h1,
+   _L.fromArray([]),
+   _L.fromArray([A2(title,
+   "Bingo!",
+   3)]));
+   var Add = {ctor: "Add"};
+   var UpdatePointsInput = function (a) {
+      return {ctor: "UpdatePointsInput"
+             ,_0: a};
+   };
+   var UpdatePhraseInput = function (a) {
+      return {ctor: "UpdatePhraseInput"
+             ,_0: a};
+   };
+   var entryForm = F2(function (address,
+   model) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.input,
+                   _L.fromArray([$Html$Attributes.type$("text")
+                                ,$Html$Attributes.placeholder("Phrase")
+                                ,$Html$Attributes.value(model.phraseInput)
+                                ,$Html$Attributes.name("phrase")
+                                ,$Html$Attributes.autofocus(true)
+                                ,A2($BingoUtils.onInput,
+                                address,
+                                UpdatePhraseInput)]),
+                   _L.fromArray([]))
+                   ,A2($Html.input,
+                   _L.fromArray([$Html$Attributes.type$("number")
+                                ,$Html$Attributes.placeholder("Points")
+                                ,$Html$Attributes.value(model.pointsInput)
+                                ,$Html$Attributes.name("points")
+                                ,A2($BingoUtils.onInput,
+                                address,
+                                UpdatePointsInput)]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([$Html$Attributes.$class("add")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                Add)]),
+                   _L.fromArray([$Html.text("Add")]))
+                   ,A2($Html.h2,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text(A2($Basics._op["++"],
+                   model.phraseInput,
+                   A2($Basics._op["++"],
+                   " ",
+                   model.pointsInput)))]))]));
+   });
+   var Delete = function (a) {
+      return {ctor: "Delete"
+             ,_0: a};
+   };
+   var Mark = function (a) {
+      return {ctor: "Mark",_0: a};
+   };
+   var entryItem = F2(function (address,
+   entry) {
+      return A2($Html.li,
+      _L.fromArray([$Html$Attributes.classList(_L.fromArray([{ctor: "_Tuple2"
+                                                             ,_0: "highlight"
+                                                             ,_1: entry.wasSpoken}]))
+                   ,A2($Html$Events.onClick,
+                   address,
+                   Mark(entry.id))]),
+      _L.fromArray([A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("phrase")]),
+                   _L.fromArray([$Html.text(entry.phrase)]))
+                   ,A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("points")]),
+                   _L.fromArray([$Html.text($Basics.toString(entry.points))]))
+                   ,A2($Html.button,
+                   _L.fromArray([$Html$Attributes.$class("delete")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                Delete(entry.id))]),
+                   _L.fromArray([]))]));
+   });
+   var entryList = F2(function (address,
+   entries) {
+      return function () {
+         var entryItems = A2($List.map,
+         entryItem(address),
+         entries);
+         var items = A2($Basics._op["++"],
+         entryItems,
+         _L.fromArray([totalItem(totalPoints(entries))]));
+         return A2($Html.ul,
+         _L.fromArray([]),
+         items);
+      }();
+   });
+   var Sort = {ctor: "Sort"};
+   var view = F2(function (address,
+   model) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.id("container")]),
+      _L.fromArray([pageHeader
+                   ,A2(entryForm,address,model)
+                   ,A2(entryList,
+                   address,
+                   model.entries)
+                   ,A2($Html.button,
+                   _L.fromArray([$Html$Attributes.$class("sort")
+                                ,A2($Html$Events.onClick,
+                                address,
+                                Sort)]),
+                   _L.fromArray([$Html.text("Sort")]))
+                   ,pageFooter]));
+   });
+   var NoOp = {ctor: "NoOp"};
+   var newEntry = F3(function (phrase,
+   points,
+   id) {
+      return {_: {}
+             ,id: id
+             ,phrase: phrase
+             ,points: points
+             ,wasSpoken: false};
+   });
+   var initialModel = {_: {}
+                      ,entries: _L.fromArray([A3(newEntry,
+                                             "Doing Agile",
+                                             200,
+                                             2)
+                                             ,A3(newEntry,
+                                             "In The Cloud",
+                                             300,
+                                             3)
+                                             ,A3(newEntry,
+                                             "Future-Proof",
+                                             100,
+                                             1)
+                                             ,A3(newEntry,
+                                             "Rock-Star Ninja",
+                                             400,
+                                             4)])
+                      ,nextID: 5
+                      ,phraseInput: ""
+                      ,pointsInput: ""};
+   var update = F2(function (action,
+   model) {
+      return function () {
+         switch (action.ctor)
+         {case "Add":
+            return function () {
+                 var isInvalid = function (model) {
+                    return $String.isEmpty(model.phraseInput) || $String.isEmpty(model.pointsInput);
+                 };
+                 var entryToAdd = A3(newEntry,
+                 model.phraseInput,
+                 $BingoUtils.parseInt(model.pointsInput),
+                 model.nextID);
+                 return isInvalid(model) ? model : _U.replace([["phraseInput"
+                                                               ,""]
+                                                              ,["pointsInput"
+                                                               ,""]
+                                                              ,["entries"
+                                                               ,A2($List._op["::"],
+                                                               entryToAdd,
+                                                               model.entries)]
+                                                              ,["nextID"
+                                                               ,model.nextID + 1]],
+                 model);
+              }();
+            case "Delete":
+            return function () {
+                 var remainingEntries = A2($List.filter,
+                 function (e) {
+                    return !_U.eq(e.id,
+                    action._0);
+                 },
+                 model.entries);
+                 return _U.replace([["entries"
+                                    ,remainingEntries]],
+                 model);
+              }();
+            case "Mark":
+            return function () {
+                 var updateEntry = function (e) {
+                    return _U.eq(e.id,
+                    action._0) ? _U.replace([["wasSpoken"
+                                             ,$Basics.not(e.wasSpoken)]],
+                    e) : e;
+                 };
+                 return _U.replace([["entries"
+                                    ,A2($List.map,
+                                    updateEntry,
+                                    model.entries)]],
+                 model);
+              }();
+            case "NoOp": return model;
+            case "Sort":
+            return _U.replace([["entries"
+                               ,A2($List.sortBy,
+                               function (_) {
+                                  return _.points;
+                               },
+                               model.entries)]],
+              model);
+            case "UpdatePhraseInput":
+            return _U.replace([["phraseInput"
+                               ,action._0]],
+              model);
+            case "UpdatePointsInput":
+            return _U.replace([["pointsInput"
+                               ,action._0]],
+              model);}
+         _U.badCase($moduleName,
+         "between lines 72 and 113");
+      }();
+   });
+   var main = $StartApp.start({_: {}
+                              ,model: initialModel
+                              ,update: update
+                              ,view: view});
+   var Entry = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,id: d
+             ,phrase: a
+             ,points: b
+             ,wasSpoken: c};
+   });
+   var Model = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,entries: a
+             ,nextID: d
+             ,phraseInput: b
+             ,pointsInput: c};
+   });
+   _elm.Bingo.values = {_op: _op
+                       ,Model: Model
+                       ,Entry: Entry
+                       ,newEntry: newEntry
+                       ,initialModel: initialModel
+                       ,NoOp: NoOp
+                       ,Sort: Sort
+                       ,Mark: Mark
+                       ,Delete: Delete
+                       ,UpdatePhraseInput: UpdatePhraseInput
+                       ,UpdatePointsInput: UpdatePointsInput
+                       ,Add: Add
+                       ,update: update
+                       ,view: view
+                       ,title: title
+                       ,pageHeader: pageHeader
+                       ,pageFooter: pageFooter
+                       ,totalPoints: totalPoints
+                       ,totalItem: totalItem
+                       ,entryItem: entryItem
+                       ,entryList: entryList
+                       ,entryForm: entryForm
+                       ,main: main};
+   return _elm.Bingo.values;
+};

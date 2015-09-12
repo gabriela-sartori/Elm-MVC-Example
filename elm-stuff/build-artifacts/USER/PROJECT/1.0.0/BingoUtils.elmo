@@ -1,0 +1,45 @@
+Elm.BingoUtils = Elm.BingoUtils || {};
+Elm.BingoUtils.make = function (_elm) {
+   "use strict";
+   _elm.BingoUtils = _elm.BingoUtils || {};
+   if (_elm.BingoUtils.values)
+   return _elm.BingoUtils.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "BingoUtils",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm);
+   var parseInt = function (string) {
+      return function () {
+         var _v0 = $String.toInt(string);
+         switch (_v0.ctor)
+         {case "Err": return 0;
+            case "Ok": return _v0._0;}
+         _U.badCase($moduleName,
+         "between lines 24 and 28");
+      }();
+   };
+   var onInput = F2(function (address,
+   f) {
+      return A3($Html$Events.on,
+      "input",
+      $Html$Events.targetValue,
+      function (v) {
+         return A2($Signal.message,
+         address,
+         f(v));
+      });
+   });
+   _elm.BingoUtils.values = {_op: _op
+                            ,onInput: onInput
+                            ,parseInt: parseInt};
+   return _elm.BingoUtils.values;
+};

@@ -1,0 +1,286 @@
+Elm.View = Elm.View || {};
+Elm.View.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   if (_elm.View.values)
+   return _elm.View.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "View",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Model = Elm.Model.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Update = Elm.Update.make(_elm),
+   $Utils = Elm.Utils.make(_elm);
+   var view_logout = F2(function (address,
+   account) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([$Html.text(A2($Basics._op["++"],
+                   "Name: ",
+                   account.name))
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([A2($Html$Events.onClick,
+                   address,
+                   $Update.ActLogout)]),
+                   _L.fromArray([$Html.text("Logout")]))]));
+   });
+   var view_login_form = F2(function (address,
+   model) {
+      return function () {
+         var onPressEnter = A2($Html$Events.onKeyPress,
+         address,
+         function (x) {
+            return _U.eq(x,
+            13) ? $Update.ActLogin : $Update.ActNop;
+         });
+         return A2($Html.div,
+         _L.fromArray([]),
+         _L.fromArray([A2($Html.h1,
+                      _L.fromArray([]),
+                      _L.fromArray([$Html.text("Login")]))
+                      ,$Html.text("Username ")
+                      ,A2($Html.input,
+                      _L.fromArray([A2($Utils.onInput,
+                                   address,
+                                   $Update.ActUpdateLogin)
+                                   ,$Html$Attributes.value(model.login)
+                                   ,onPressEnter
+                                   ,$Html$Attributes.autofocus(true)]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,$Html.text("Password ")
+                      ,A2($Html.input,
+                      _L.fromArray([A2($Utils.onInput,
+                                   address,
+                                   $Update.ActUpdatePass)
+                                   ,$Html$Attributes.value(model.password)
+                                   ,onPressEnter]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.button,
+                      _L.fromArray([A2($Html$Events.onClick,
+                      address,
+                      $Update.ActChangePage($Model.AtHome))]),
+                      _L.fromArray([$Html.text("Back")]))
+                      ,A2($Html.span,
+                      _L.fromArray([]),
+                      _L.fromArray([$Html.text(" ")]))
+                      ,A2($Html.button,
+                      _L.fromArray([A2($Html$Events.onClick,
+                      address,
+                      $Update.ActLogin)]),
+                      _L.fromArray([$Html.text("Login")]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.span,
+                      _L.fromArray([$Html$Attributes.style(_L.fromArray([{ctor: "_Tuple2"
+                                                                         ,_0: "color"
+                                                                         ,_1: "red"}]))]),
+                      _L.fromArray([$Html.text(model.message)]))]));
+      }();
+   });
+   var view_about_form = F2(function (address,
+   model) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.h1,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("About")]))
+                   ,$Html.text("I am Learning Elm functional language, so to practise I\'ve created this :D")
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,$Html.text("I know, I know that the design sucks, but who cares ? D:")
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.a,
+                   _L.fromArray([$Html$Attributes.href("http://www.elm-lang.org")
+                                ,$Html$Attributes.target("_blank")]),
+                   _L.fromArray([$Html.text("www.elm-lang.org")]))
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([A2($Html$Events.onClick,
+                   address,
+                   $Update.ActChangePage($Model.AtHome))]),
+                   _L.fromArray([$Html.text("Back")]))]));
+   });
+   var view_home_form = F2(function (address,
+   model) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.h1,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("Elm Learning : Welcome!")]))
+                   ,$Html.text("Please feel like at home :)")
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([A2($Html$Events.onClick,
+                   address,
+                   $Update.ActChangePage($Model.AtLogin))]),
+                   _L.fromArray([$Html.text("Login")]))
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([A2($Html$Events.onClick,
+                   address,
+                   $Update.ActChangePage($Model.AtRegister))]),
+                   _L.fromArray([$Html.text("Register")]))
+                   ,A2($Html.br,
+                   _L.fromArray([]),
+                   _L.fromArray([]))
+                   ,A2($Html.button,
+                   _L.fromArray([A2($Html$Events.onClick,
+                   address,
+                   $Update.ActChangePage($Model.AtAbout))]),
+                   _L.fromArray([$Html.text("About")]))]));
+   });
+   var view_register_form = F2(function (address,
+   model) {
+      return function () {
+         var onPressEnter = A2($Html$Events.onKeyPress,
+         address,
+         function (x) {
+            return _U.eq(x,
+            13) ? $Update.ActRegister : $Update.ActNop;
+         });
+         return A2($Html.div,
+         _L.fromArray([]),
+         _L.fromArray([A2($Html.h1,
+                      _L.fromArray([]),
+                      _L.fromArray([$Html.text("Register")]))
+                      ,$Html.text("Nome ")
+                      ,A2($Html.input,
+                      _L.fromArray([A2($Utils.onInput,
+                                   address,
+                                   $Update.ActUpdateRegisterName)
+                                   ,$Html$Attributes.value(model.register_form.name)
+                                   ,onPressEnter
+                                   ,$Html$Attributes.autofocus(true)]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,$Html.text("Usuário ")
+                      ,A2($Html.input,
+                      _L.fromArray([A2($Utils.onInput,
+                                   address,
+                                   $Update.ActUpdateRegisterLogin)
+                                   ,$Html$Attributes.value(model.register_form.login)
+                                   ,onPressEnter]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,$Html.text("Senha ")
+                      ,A2($Html.input,
+                      _L.fromArray([A2($Utils.onInput,
+                                   address,
+                                   $Update.ActUpdateRegisterPass)
+                                   ,$Html$Attributes.value(model.register_form.password)
+                                   ,onPressEnter]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.button,
+                      _L.fromArray([A2($Html$Events.onClick,
+                      address,
+                      $Update.ActChangePage($Model.AtHome))]),
+                      _L.fromArray([$Html.text("Back")]))
+                      ,A2($Html.span,
+                      _L.fromArray([$Html$Attributes.style(_L.fromArray([{ctor: "_Tuple2"
+                                                                         ,_0: "color"
+                                                                         ,_1: "white"}]))]),
+                      _L.fromArray([$Html.text(" : ")]))
+                      ,A2($Html.button,
+                      _L.fromArray([A2($Html$Events.onClick,
+                      address,
+                      $Update.ActChangePage($Model.AtRegister))]),
+                      _L.fromArray([$Html.text("Register")]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.br,
+                      _L.fromArray([]),
+                      _L.fromArray([]))
+                      ,A2($Html.span,
+                      _L.fromArray([$Html$Attributes.style(_L.fromArray([{ctor: "_Tuple2"
+                                                                         ,_0: "color"
+                                                                         ,_1: "red"}]))]),
+                      _L.fromArray([$Html.text(model.message)]))]));
+      }();
+   });
+   var view = F2(function (address,
+   model) {
+      return function () {
+         var _v0 = model.page;
+         switch (_v0.ctor)
+         {case "AtAbout":
+            return A2(view_about_form,
+              address,
+              model);
+            case "AtHome":
+            return A2(view_home_form,
+              address,
+              model);
+            case "AtLogin":
+            return function () {
+                 var _v1 = model.account;
+                 switch (_v1.ctor)
+                 {case "Just":
+                    return A2(view_logout,
+                      address,
+                      _v1._0);
+                    case "Nothing":
+                    return A2(view_login_form,
+                      address,
+                      model);}
+                 _U.badCase($moduleName,
+                 "between lines 22 and 24");
+              }();
+            case "AtRegister":
+            return A2(view_register_form,
+              address,
+              model);}
+         _U.badCase($moduleName,
+         "between lines 17 and 24");
+      }();
+   });
+   _elm.View.values = {_op: _op
+                      ,view: view
+                      ,view_register_form: view_register_form
+                      ,view_home_form: view_home_form
+                      ,view_about_form: view_about_form
+                      ,view_login_form: view_login_form
+                      ,view_logout: view_logout};
+   return _elm.View.values;
+};

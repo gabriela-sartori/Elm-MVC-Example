@@ -1,0 +1,203 @@
+Elm.Update = Elm.Update || {};
+Elm.Update.make = function (_elm) {
+   "use strict";
+   _elm.Update = _elm.Update || {};
+   if (_elm.Update.values)
+   return _elm.Update.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Update",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Model = Elm.Model.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Utils = Elm.Utils.make(_elm);
+   var update = F2(function (action,
+   model) {
+      return function () {
+         switch (action.ctor)
+         {case "ActChangePage":
+            return _U.replace([["page"
+                               ,action._0]],
+              model);
+            case "ActLogin":
+            return function () {
+                 var account = $List.head($List.filter(function (acc) {
+                    return _U.eq($Utils.fixStr(acc.login),
+                    $Utils.fixStr(model.login)) && _U.eq($Utils.fixStr(acc.password),
+                    $Utils.fixStr(model.password));
+                 })(model.accounts));
+                 return function () {
+                    switch (account.ctor)
+                    {case "Just":
+                       return _U.replace([["login",""]
+                                         ,["password",""]
+                                         ,["account"
+                                          ,$Maybe.Just(account._0)]
+                                         ,["message"
+                                          ,A2($Basics._op["++"],
+                                          "Bem Vindo ",
+                                          A2($Basics._op["++"],
+                                          account._0.name,
+                                          "!"))]],
+                         model);
+                       case "Nothing":
+                       return _U.replace([["login",""]
+                                         ,["password",""]
+                                         ,["account",$Maybe.Nothing]
+                                         ,["message"
+                                          ,"Wrong Login or Password!"]],
+                         model);}
+                    _U.badCase($moduleName,
+                    "between lines 60 and 73");
+                 }();
+              }();
+            case "ActLogout":
+            return _U.eq(model.account,
+              $Maybe.Nothing) ? _U.replace([["message"
+                                            ,"You are not logged"]],
+              model) : _U.replace([["account"
+                                   ,$Maybe.Nothing]
+                                  ,["message"
+                                   ,"Você deslogou :)"]],
+              model);
+            case "ActNop": return model;
+            case "ActRegister":
+            return function () {
+                 var pass$ = $Utils.fixStr(model.register_form.password);
+                 var login$ = $Utils.fixStr(model.register_form.login);
+                 var account = $List.head($List.filter(function (st) {
+                    return _U.eq(login$,
+                    $Utils.fixStr(st.login));
+                 })(model.accounts));
+                 var name$ = $Utils.fixStr(model.register_form.name);
+                 return A2($List.any,
+                 function ($) {
+                    return F2(function (x,y) {
+                       return _U.eq(x,y);
+                    })(0)($String.length($));
+                 },
+                 _L.fromArray([name$
+                              ,login$
+                              ,pass$])) ? _U.replace([["message"
+                                                      ,"Please fill all the fields"]],
+                 model) : function () {
+                    switch (account.ctor)
+                    {case "Just":
+                       return _U.replace([["message"
+                                          ,"This user already exists!"]
+                                         ,["register_form"
+                                          ,{_: {}
+                                           ,id: 0
+                                           ,login: ""
+                                           ,name: ""
+                                           ,password: ""}]],
+                         model);
+                       case "Nothing":
+                       return _U.replace([["accounts"
+                                          ,A2($Basics._op["++"],
+                                          model.accounts,
+                                          _L.fromArray([{_: {}
+                                                        ,id: $List.length(model.accounts)
+                                                        ,login: model.register_form.login
+                                                        ,name: model.register_form.name
+                                                        ,password: model.register_form.password}]))]
+                                         ,["message"
+                                          ,"You sucessfully registered!"]
+                                         ,["register_form"
+                                          ,{_: {}
+                                           ,id: 0
+                                           ,login: ""
+                                           ,name: ""
+                                           ,password: ""}]],
+                         model);}
+                    _U.badCase($moduleName,
+                    "between lines 39 and 52");
+                 }();
+              }();
+            case "ActUpdateLogin":
+            return _U.replace([["login"
+                               ,action._0]],
+              model);
+            case "ActUpdatePass":
+            return _U.replace([["password"
+                               ,action._0]],
+              model);
+            case "ActUpdateRegisterLogin":
+            return function () {
+                 var form$ = model.register_form;
+                 return _U.replace([["register_form"
+                                    ,_U.replace([["login"
+                                                 ,action._0]],
+                                    form$)]],
+                 model);
+              }();
+            case "ActUpdateRegisterName":
+            return function () {
+                 var form$ = model.register_form;
+                 return _U.replace([["register_form"
+                                    ,_U.replace([["name"
+                                                 ,action._0]],
+                                    form$)]],
+                 model);
+              }();
+            case "ActUpdateRegisterPass":
+            return function () {
+                 var form$ = model.register_form;
+                 return _U.replace([["register_form"
+                                    ,_U.replace([["password"
+                                                 ,action._0]],
+                                    form$)]],
+                 model);
+              }();}
+         _U.badCase($moduleName,
+         "between lines 24 and 78");
+      }();
+   });
+   var ActLogout = {ctor: "ActLogout"};
+   var ActLogin = {ctor: "ActLogin"};
+   var ActUpdatePass = function (a) {
+      return {ctor: "ActUpdatePass"
+             ,_0: a};
+   };
+   var ActUpdateLogin = function (a) {
+      return {ctor: "ActUpdateLogin"
+             ,_0: a};
+   };
+   var ActRegister = {ctor: "ActRegister"};
+   var ActUpdateRegisterPass = function (a) {
+      return {ctor: "ActUpdateRegisterPass"
+             ,_0: a};
+   };
+   var ActUpdateRegisterLogin = function (a) {
+      return {ctor: "ActUpdateRegisterLogin"
+             ,_0: a};
+   };
+   var ActUpdateRegisterName = function (a) {
+      return {ctor: "ActUpdateRegisterName"
+             ,_0: a};
+   };
+   var ActChangePage = function (a) {
+      return {ctor: "ActChangePage"
+             ,_0: a};
+   };
+   var ActNop = {ctor: "ActNop"};
+   _elm.Update.values = {_op: _op
+                        ,ActNop: ActNop
+                        ,ActChangePage: ActChangePage
+                        ,ActUpdateRegisterName: ActUpdateRegisterName
+                        ,ActUpdateRegisterLogin: ActUpdateRegisterLogin
+                        ,ActUpdateRegisterPass: ActUpdateRegisterPass
+                        ,ActRegister: ActRegister
+                        ,ActUpdateLogin: ActUpdateLogin
+                        ,ActUpdatePass: ActUpdatePass
+                        ,ActLogin: ActLogin
+                        ,ActLogout: ActLogout
+                        ,update: update};
+   return _elm.Update.values;
+};
